@@ -1,0 +1,33 @@
+# .gitignore file
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Environment Variables
+.env
+*.env
+
+# Logs
+*.log
+
+# Virtual Environment
+venv/
+.env/
+
+# IDE Files
+.idea/
+.vscode/
+
+# Byte-compiled
+*.pyc
+
+# Docker
+*.dockerignore
+docker-compose.override.yml
+
+# OS files
+.DS_Store
+Thumbs.db

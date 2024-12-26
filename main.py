@@ -7,7 +7,11 @@ from langchain_groq import ChatGroq
 from langchain.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.docstore.document import Document
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+api_key = os.getenv("GROQ_API_KEY")
 app = FastAPI()
 
 def load_data_from_csv(file_path):
@@ -64,7 +68,7 @@ async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingre
         documents, df = load_data_from_csv(file_path)
 
         # Create RetrievalQA chain
-        groq_api_key = "<your_groq_api_key>"
+        groq_api_key = api_key
         model_name = "all-MiniLM-L6-v2"
         qa_chain = create_retrieval_chain(documents, model_name, groq_api_key)
 
