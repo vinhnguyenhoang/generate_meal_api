@@ -1,102 +1,231 @@
 meal_id,meal_name,ingredient_name,ingredient_qty,calo
-1,Garlic Butter Shrimp,Garlic,5.0,350
-1,Garlic Butter Shrimp,Shrimp,200.0,350
-1,Garlic Butter Shrimp,Butter,50.0,350
-1,Garlic Butter Shrimp,Olive oil,10.0,350
-1,Garlic Butter Shrimp,Soy sauce,15.0,350
-2,Chicken Fried Rice,Chicken breast,150.0,450
-2,Chicken Fried Rice,Rice,200.0,450
-2,Chicken Fried Rice,Egg,2.0,450
-2,Chicken Fried Rice,Onion,50.0,450
-2,Chicken Fried Rice,Vegetable oil,10.0,450
-3,Vegetable Stir Fry,Broccoli,100.0,300
-3,Vegetable Stir Fry,Green beans,80.0,300
-3,Vegetable Stir Fry,Cucumber,50.0,300
-3,Vegetable Stir Fry,Bok choy,50.0,300
-3,Vegetable Stir Fry,Vegetable oil,10.0,300
-4,Beef and Broccoli Stir Fry,Beef,150.0,400
-4,Beef and Broccoli Stir Fry,Broccoli,100.0,400
-4,Beef and Broccoli Stir Fry,Soy sauce,20.0,400
-4,Beef and Broccoli Stir Fry,Butter,20.0,400
-4,Beef and Broccoli Stir Fry,Olive oil,10.0,400
-5,Spaghetti with Meat Sauce,Unknown,200.0,550
-5,Spaghetti with Meat Sauce,Beef,100.0,550
-5,Spaghetti with Meat Sauce,"Tomatoes, crushed",150.0,550
-5,Spaghetti with Meat Sauce,Onion,50.0,550
-5,Spaghetti with Meat Sauce,Olive oil,10.0,550
-6,Cheesy Baked Potatoes,Potatoes,300.0,500
-6,Cheesy Baked Potatoes,"Cheese, cheddar",50.0,500
-6,Cheesy Baked Potatoes,Milk,100.0,500
-6,Cheesy Baked Potatoes,Butter,30.0,500
-6,Cheesy Baked Potatoes,Sugar,5.0,500
-7,Tilapia with Lemon Butter,Tilapia,200.0,400
-7,Tilapia with Lemon Butter,Butter,30.0,400
-7,Tilapia with Lemon Butter,Lemon juice,10.0,400
-7,Tilapia with Lemon Butter,Garlic,3.0,400
-7,Tilapia with Lemon Butter,Olive oil,10.0,400
-8,Vegetarian Chickpea Stew,Chickpeas,150.0,350
-8,Vegetarian Chickpea Stew,"Tomatoes, crushed",200.0,350
-8,Vegetarian Chickpea Stew,"Cabbage, green",100.0,350
-8,Vegetarian Chickpea Stew,Beets,50.0,350
-8,Vegetarian Chickpea Stew,Vegetable oil,15.0,350
-9,Shrimp Tacos,Shrimp,150.0,300
-9,Shrimp Tacos,Lemon juice,10.0,300
-9,Shrimp Tacos,Garlic,3.0,300
-9,Shrimp Tacos,"Tomatoes, crushed",50.0,300
-9,Shrimp Tacos,Olive oil,10.0,300
-10,Beef Pho,Beef,150.0,350
-10,Beef Pho,"Cabbage, green",50.0,350
-10,Beef Pho,Chickpeas,30.0,350
-10,Beef Pho,Bok choy,20.0,350
-10,Beef Pho,Onion,20.0,350
-11,Vegetable Curry,"Tomatoes, crushed",200.0,400
-11,Vegetable Curry,"Cabbage, green",100.0,400
-11,Vegetable Curry,Beets,50.0,400
-11,Vegetable Curry,Green beans,30.0,400
-11,Vegetable Curry,Vegetable oil,10.0,400
-12,Chicken Caesar Salad,Unknown,100.0,250
-12,Chicken Caesar Salad,Lemon juice,10.0,250
-12,Chicken Caesar Salad,Chicken breast,150.0,250
-12,Chicken Caesar Salad,Garlic,5.0,250
-12,Chicken Caesar Salad,"Cheese, cheddar",30.0,250
-13,Tomato Basil Soup,"Tomatoes, crushed",150.0,300
-13,Tomato Basil Soup,Milk,200.0,300
-13,Tomato Basil Soup,Onion,50.0,300
-13,Tomato Basil Soup,Olive oil,10.0,300
-13,Tomato Basil Soup,Chickpeas,20.0,300
-14,Grilled Cheese Sandwich,"Cheese, cheddar",100.0,400
-14,Grilled Cheese Sandwich,Butter,20.0,400
-14,Grilled Cheese Sandwich,Potatoes,200.0,400
-14,Grilled Cheese Sandwich,Milk,50.0,400
-14,Grilled Cheese Sandwich,Sugar,5.0,400
-15,Eggplant Parmesan,Unknown,200.0,450
-15,Eggplant Parmesan,"Cheese, cheddar",50.0,450
-15,Eggplant Parmesan,"Tomatoes, crushed",150.0,450
-15,Eggplant Parmesan,Butter,30.0,450
-15,Eggplant Parmesan,Olive oil,10.0,450
-16,BBQ Pork Ribs,Beef,300.0,600
-16,BBQ Pork Ribs,Soy sauce,20.0,600
-16,BBQ Pork Ribs,Olive oil,20.0,600
-16,BBQ Pork Ribs,Butter,50.0,600
-16,BBQ Pork Ribs,Milk,100.0,600
-17,Avocado Toast,Lemon juice,20.0,200
-17,Avocado Toast,Unknown,150.0,200
-17,Avocado Toast,Olive oil,10.0,200
-17,Avocado Toast,Milk,50.0,200
-17,Avocado Toast,Sugar,5.0,200
-18,Berry Smoothie,Unknown,100.0,250
-18,Berry Smoothie,Unknown,50.0,250
-18,Berry Smoothie,Milk,200.0,250
-18,Berry Smoothie,Sugar,10.0,250
-18,Berry Smoothie,Olive oil,5.0,250
-19,Sweet and Spicy Veggie Stir-Fry,"Peppers, bell, green, raw",1.0,150
-19,Sweet and Spicy Veggie Stir-Fry,"Mushrooms, crimini",50.0,150
-19,Sweet and Spicy Veggie Stir-Fry,"Spinach, mature",30.0,150
-19,Sweet and Spicy Veggie Stir-Fry,"Kale, raw",50.0,150
-19,Sweet and Spicy Veggie Stir-Fry,Soy sauce made from soy (tamari),1.0,150
-19,Sweet and Spicy Veggie Stir-Fry,"Spices, chili powder",1.0,150
-20,Grilled Salmon with Corn and Zucchini,"Fish, salmon, Atlantic, farm raised, raw",150.0,350
-20,Grilled Salmon with Corn and Zucchini,"Corn, sweet, yellow and white kernels, fresh, raw",100.0,350
-20,Grilled Salmon with Corn and Zucchini,"Squash, summer, green, zucchini, includes skin, raw",50.0,350
-20,Grilled Salmon with Corn and Zucchini,Soy sauce made from soy (tamari),1.0,350
-20,Grilled Salmon with Corn and Zucchini,"Spices, chili powder",1.0,350
+1,Garlic Butter Shrimp,Garlic,5.0,874
+1,Garlic Butter Shrimp,Shrimp,200.0,874
+1,Garlic Butter Shrimp,Butter,50.0,874
+1,Garlic Butter Shrimp,Olive oil,10.0,874
+1,Garlic Butter Shrimp,Soy sauce,15.0,874
+2,Chicken Fried Rice,Chicken breast,150.0,840
+2,Chicken Fried Rice,Rice,200.0,840
+2,Chicken Fried Rice,Egg,2.0,840
+2,Chicken Fried Rice,Onion,50.0,840
+2,Chicken Fried Rice,Vegetable oil,10.0,840
+3,Vegetable Stir Fry,Broccoli,100.0,178
+3,Vegetable Stir Fry,Green beans,80.0,178
+3,Vegetable Stir Fry,Cucumber,50.0,178
+3,Vegetable Stir Fry,Bok choy,50.0,178
+3,Vegetable Stir Fry,Vegetable oil,10.0,178
+4,Beef and Broccoli Stir Fry,Beef,150.0,605
+4,Beef and Broccoli Stir Fry,Broccoli,100.0,605
+4,Beef and Broccoli Stir Fry,Soy sauce,20.0,605
+4,Beef and Broccoli Stir Fry,Butter,20.0,605
+4,Beef and Broccoli Stir Fry,Olive oil,10.0,605
+5,Spaghetti with Meat Sauce,Spaghetti,200.0,895
+5,Spaghetti with Meat Sauce,Ground beef,150.0,895
+5,Spaghetti with Meat Sauce,Tomato sauce,100.0,895
+5,Spaghetti with Meat Sauce,Onion,50.0,895
+5,Spaghetti with Meat Sauce,Olive oil,10.0,895
+6,Cheesy Baked Potatoes,Potatoes,300.0,655
+6,Cheesy Baked Potatoes,Cheddar cheese,50.0,655
+6,Cheesy Baked Potatoes,Butter,20.0,655
+6,Cheesy Baked Potatoes,Sour cream,30.0,655
+6,Cheesy Baked Potatoes,Chives,10.0,655
+7,Tilapia with Lemon Butter,Tilapia,200.0,549
+7,Tilapia with Lemon Butter,Butter,30.0,549
+7,Tilapia with Lemon Butter,Lemon,1.0,549
+7,Tilapia with Lemon Butter,Garlic,5.0,549
+7,Tilapia with Lemon Butter,Olive oil,10.0,549
+8,Vegetarian Chickpea Stew,Chickpeas,200.0,420
+8,Vegetarian Chickpea Stew,Tomatoes,100.0,420
+8,Vegetarian Chickpea Stew,Onion,50.0,420
+8,Vegetarian Chickpea Stew,Carrot,50.0,420
+8,Vegetarian Chickpea Stew,Vegetable broth,200.0,420
+9,Green Vegetable Medley,Broccoli,100.0,177
+9,Green Vegetable Medley,Green beans,80.0,177
+9,Green Vegetable Medley,Spinach,50.0,177
+9,Green Vegetable Medley,Zucchini,50.0,177
+9,Green Vegetable Medley,Olive oil,10.0,177
+10,Creamy Cashew Chicken,Chicken breast,150.0,704
+10,Creamy Cashew Chicken,Cashews,30.0,704
+10,Creamy Cashew Chicken,Coconut milk,50.0,704
+10,Creamy Cashew Chicken,Onion,50.0,704
+10,Creamy Cashew Chicken,Garlic,5.0,704
+11,Spicy Sesame Noodles,Noodles,200.0,489
+11,Spicy Sesame Noodles,Sesame oil,15.0,489
+11,Spicy Sesame Noodles,Soy sauce,20.0,489
+11,Spicy Sesame Noodles,Chili paste,10.0,489
+11,Spicy Sesame Noodles,Garlic,5.0,489
+12,Tuna and Zucchini Bake,Tuna,200.0,735
+12,Tuna and Zucchini Bake,Zucchini,150.0,735
+12,Tuna and Zucchini Bake,Cheese,50.0,735
+12,Tuna and Zucchini Bake,Olive oil,15.0,735
+12,Tuna and Zucchini Bake,Breadcrumbs,30.0,735
+13,Turmeric Infused Lentils,Lentils,200.0,319
+13,Turmeric Infused Lentils,Turmeric,5.0,319
+13,Turmeric Infused Lentils,Onion,50.0,319
+13,Turmeric Infused Lentils,Garlic,5.0,319
+13,Turmeric Infused Lentils,Vegetable broth,500.0,319
+14,Coconut Cream Curry,Coconut milk,200.0,930
+14,Coconut Cream Curry,Chicken breast,150.0,930
+14,Coconut Cream Curry,Onion,50.0,930
+14,Coconut Cream Curry,Curry powder,10.0,930
+14,Coconut Cream Curry,Rice,200.0,930
+15,Honey Glazed Pork Belly,Pork belly,200.0,724
+15,Honey Glazed Pork Belly,Honey,30.0,724
+15,Honey Glazed Pork Belly,Soy sauce,20.0,724
+15,Honey Glazed Pork Belly,Garlic,5.0,724
+15,Honey Glazed Pork Belly,Olive oil,10.0,724
+16,Chocolate Almond Delight,Almonds,50.0,755
+16,Chocolate Almond Delight,Dark chocolate,50.0,755
+16,Chocolate Almond Delight,Honey,20.0,755
+16,Chocolate Almond Delight,Butter,20.0,755
+16,Chocolate Almond Delight,Vanilla extract,5.0,755
+17,Garlic Butter Tilapia,Tilapia,200.0,669
+17,Garlic Butter Tilapia,Garlic,5.0,669
+17,Garlic Butter Tilapia,Butter,50.0,669
+17,Garlic Butter Tilapia,Olive oil,10.0,669
+17,Garlic Butter Tilapia,Lemon,10.0,669
+18,Beef Bok Choy Stir Fry,Beef,150.0,447
+18,Beef Bok Choy Stir Fry,Bok choy,100.0,447
+18,Beef Bok Choy Stir Fry,Soy sauce,20.0,447
+18,Beef Bok Choy Stir Fry,Garlic,5.0,447
+18,Beef Bok Choy Stir Fry,Vegetable oil,10.0,447
+19,Creamy Chicken and Potato Bake,Chicken breast,200.0,1114
+19,Creamy Chicken and Potato Bake,Potato,150.0,1114
+19,Creamy Chicken and Potato Bake,Cream,100.0,1114
+19,Creamy Chicken and Potato Bake,Cheese,50.0,1114
+19,Creamy Chicken and Potato Bake,Garlic,5.0,1114
+20,Sweet and Sour Pork with Rice,Pork,150.0,700
+20,Sweet and Sour Pork with Rice,Rice,200.0,700
+20,Sweet and Sour Pork with Rice,Pineapple,100.0,700
+20,Sweet and Sour Pork with Rice,Bell pepper,50.0,700
+20,Sweet and Sour Pork with Rice,Soy sauce,20.0,700
+21,Spaghetti with Tomato and Mushroom,Spaghetti,200.0,399
+21,Spaghetti with Tomato and Mushroom,Tomato,100.0,399
+21,Spaghetti with Tomato and Mushroom,Mushroom,100.0,399
+21,Spaghetti with Tomato and Mushroom,Garlic,5.0,399
+21,Spaghetti with Tomato and Mushroom,Olive oil,10.0,399
+22,Vegetarian Cabbage Wraps,Cabbage,200.0,320
+22,Vegetarian Cabbage Wraps,Rice,100.0,320
+22,Vegetarian Cabbage Wraps,Carrot,50.0,320
+22,Vegetarian Cabbage Wraps,Soy sauce,15.0,320
+22,Vegetarian Cabbage Wraps,Olive oil,10.0,320
+23,Avocado Tuna Salad,Tuna,150.0,455
+23,Avocado Tuna Salad,Avocado,100.0,455
+23,Avocado Tuna Salad,Cucumber,50.0,455
+23,Avocado Tuna Salad,Lemon,10.0,455
+23,Avocado Tuna Salad,Olive oil,10.0,455
+24,Coconut Oat Pancakes,Oats,100.0,744
+24,Coconut Oat Pancakes,Coconut milk,100.0,744
+24,Coconut Oat Pancakes,Egg,2.0,744
+24,Coconut Oat Pancakes,Baking powder,5.0,744
+24,Coconut Oat Pancakes,Honey,20.0,744
+25,Baked Eggplant Parmesan,Eggplant,200.0,780
+25,Baked Eggplant Parmesan,Cheese,100.0,780
+25,Baked Eggplant Parmesan,Tomato sauce,100.0,780
+25,Baked Eggplant Parmesan,Breadcrumbs,50.0,780
+25,Baked Eggplant Parmesan,Olive oil,10.0,780
+26,Walnut and Grape Salad,Walnuts,50.0,522
+26,Walnut and Grape Salad,Grapes,100.0,522
+26,Walnut and Grape Salad,Spinach,50.0,522
+26,Walnut and Grape Salad,Olive oil,10.0,522
+26,Walnut and Grape Salad,Balsamic vinegar,10.0,522
+27,Honey Garlic Pork Chops,Pork chop,200.0,594
+27,Honey Garlic Pork Chops,Honey,20.0,594
+27,Honey Garlic Pork Chops,Garlic,5.0,594
+27,Honey Garlic Pork Chops,Soy sauce,20.0,594
+27,Honey Garlic Pork Chops,Olive oil,10.0,594
+28,Asian Sesame Chicken Salad,Chicken breast,150.0,522
+28,Asian Sesame Chicken Salad,Spinach,50.0,522
+28,Asian Sesame Chicken Salad,Sesame oil,10.0,522
+28,Asian Sesame Chicken Salad,Soy sauce,15.0,522
+28,Asian Sesame Chicken Salad,Sesame seeds,10.0,522
+29,Shrimp and Avocado Tacos,Shrimp,200.0,717
+29,Shrimp and Avocado Tacos,Avocado,100.0,717
+29,Shrimp and Avocado Tacos,Taco shells,2.0,717
+29,Shrimp and Avocado Tacos,Cabbage,50.0,717
+29,Shrimp and Avocado Tacos,Lemon,10.0,717
+30,Eggplant and Chickpea Curry,Eggplant,200.0,404
+30,Eggplant and Chickpea Curry,Chickpeas,100.0,404
+30,Eggplant and Chickpea Curry,Tomato,100.0,404
+30,Eggplant and Chickpea Curry,Coconut milk,100.0,404
+30,Eggplant and Chickpea Curry,Curry powder,10.0,404
+31,Bok Choy and Mushroom Stir Fry,Bok choy,150.0,178
+31,Bok Choy and Mushroom Stir Fry,Mushroom,100.0,178
+31,Bok Choy and Mushroom Stir Fry,Soy sauce,20.0,178
+31,Bok Choy and Mushroom Stir Fry,Garlic,5.0,178
+31,Bok Choy and Mushroom Stir Fry,Olive oil,10.0,178
+32,Cabbage and Walnut Slaw,Cabbage,200.0,555
+32,Cabbage and Walnut Slaw,Walnuts,50.0,555
+32,Cabbage and Walnut Slaw,Carrot,50.0,555
+32,Cabbage and Walnut Slaw,Mayonnaise,20.0,555
+32,Cabbage and Walnut Slaw,Apple cider vinegar,10.0,555
+33,Sweet Potato and Lentil Stew,Sweet potato,200.0,340
+33,Sweet Potato and Lentil Stew,Lentils,100.0,340
+33,Sweet Potato and Lentil Stew,Onion,50.0,340
+33,Sweet Potato and Lentil Stew,Garlic,5.0,340
+33,Sweet Potato and Lentil Stew,Vegetable broth,200.0,340
+34,Creamy Tuna Pasta Salad,Tuna,150.0,553
+34,Creamy Tuna Pasta Salad,Pasta,200.0,553
+34,Creamy Tuna Pasta Salad,Mayonnaise,20.0,553
+34,Creamy Tuna Pasta Salad,Celery,50.0,553
+34,Creamy Tuna Pasta Salad,Pickles,20.0,553
+35,Avocado and Crab Toast,Avocado,100.0,420
+35,Avocado and Crab Toast,Crab meat,100.0,420
+35,Avocado and Crab Toast,Toast,1.0,420
+35,Avocado and Crab Toast,Lemon,10.0,420
+35,Avocado and Crab Toast,Olive oil,10.0,420
+36,Tomato Basil Mozzarella Salad,Tomato,100.0,402
+36,Tomato Basil Mozzarella Salad,Mozzarella cheese,100.0,402
+36,Tomato Basil Mozzarella Salad,Basil,10.0,402
+36,Tomato Basil Mozzarella Salad,Olive oil,10.0,402
+36,Tomato Basil Mozzarella Salad,Balsamic vinegar,10.0,402
+37,Grilled Beef Steak with Vegetables,Beef steak,200.0,649
+37,Grilled Beef Steak with Vegetables,Broccoli,100.0,649
+37,Grilled Beef Steak with Vegetables,Carrot,50.0,649
+37,Grilled Beef Steak with Vegetables,Olive oil,10.0,649
+37,Grilled Beef Steak with Vegetables,Garlic,5.0,649
+38,Honey Glazed Chicken Thighs,Chicken thighs,200.0,584
+38,Honey Glazed Chicken Thighs,Honey,20.0,584
+38,Honey Glazed Chicken Thighs,Soy sauce,15.0,584
+38,Honey Glazed Chicken Thighs,Garlic,5.0,584
+38,Honey Glazed Chicken Thighs,Olive oil,10.0,584
+39,Pork Belly Banh Mi,Pork belly,150.0,621
+39,Pork Belly Banh Mi,Baguette,1.0,621
+39,Pork Belly Banh Mi,Pickled carrots,50.0,621
+39,Pork Belly Banh Mi,Cucumber,50.0,621
+39,Pork Belly Banh Mi,Cilantro,10.0,621
+40,Shrimp Pad Thai,Shrimp,200.0,760
+40,Shrimp Pad Thai,Rice noodles,150.0,760
+40,Shrimp Pad Thai,Egg,1.0,760
+40,Shrimp Pad Thai,Peanut butter,10.0,760
+40,Shrimp Pad Thai,Soy sauce,15.0,760
+41,Beef Ribs with Barbecue Sauce,Beef ribs,200.0,674
+41,Beef Ribs with Barbecue Sauce,Barbecue sauce,30.0,674
+41,Beef Ribs with Barbecue Sauce,Garlic,5.0,674
+41,Beef Ribs with Barbecue Sauce,Olive oil,10.0,674
+41,Beef Ribs with Barbecue Sauce,Paprika,5.0,674
+42,Chicken and Mushroom Stroganoff,Chicken breast,150.0,575
+42,Chicken and Mushroom Stroganoff,Mushroom,100.0,575
+42,Chicken and Mushroom Stroganoff,Sour cream,30.0,575
+42,Chicken and Mushroom Stroganoff,Onion,50.0,575
+42,Chicken and Mushroom Stroganoff,Butter,20.0,575
+43,Sweet and Sour Catfish,Catfish,200.0,325
+43,Sweet and Sour Catfish,Pineapple,100.0,325
+43,Sweet and Sour Catfish,Bell pepper,50.0,325
+43,Sweet and Sour Catfish,Soy sauce,15.0,325
+43,Sweet and Sour Catfish,Vinegar,10.0,325
+44,Tilapia Fish Tacos,Tilapia,200.0,387
+44,Tilapia Fish Tacos,Taco shells,2.0,387
+44,Tilapia Fish Tacos,Cabbage,50.0,387
+44,Tilapia Fish Tacos,Sour cream,20.0,387
+44,Tilapia Fish Tacos,Lime,10.0,387
+45,Spicy Pork Stir Fry,Pork,150.0,374
+45,Spicy Pork Stir Fry,Bell pepper,50.0,374
+45,Spicy Pork Stir Fry,Onion,50.0,374
+45,Spicy Pork Stir Fry,Garlic,5.0,374
+45,Spicy Pork Stir Fry,Chili sauce,15.0,374
+46,Crab and Avocado Rolls,Crab meat,100.0,415
+46,Crab and Avocado Rolls,Avocado,100.0,415
+46,Crab and Avocado Rolls,Nori sheets,2.0,415
+46,Crab and Avocado Rolls,Rice,100.0,415
+46,Crab and Avocado Rolls,Soy sauce,15.0,415

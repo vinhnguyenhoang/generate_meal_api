@@ -15,7 +15,6 @@ import os
 load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
 app = FastAPI()
-
 def load_data_from_csv(file_path):
     """Load data from a CSV file and return a list of Document objects."""
     df = pd.read_csv(file_path)
@@ -33,7 +32,9 @@ def create_custom_retriever(vectorstore, preferences):
             return False  # Exclude documents containing allergens
         return True
     
-    return vectorstore.as_retriever(filter_function=custom_filter)
+    retriever = vectorstore.as_retriever(filter_function=custom_filter)
+    retriever.search_kwargs["k"] = 50 # Increase the number of returned documents
+    return retriever
 def create_retrieval_chain(documents, model_name, groq_api_key, preferences):
     """Create a RetrievalQA chain using the given documents and model."""
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -41,7 +42,7 @@ def create_retrieval_chain(documents, model_name, groq_api_key, preferences):
     retriever = retriever = create_custom_retriever(vectorstore, preferences)
 
 
-    model = ChatGroq(model=model_name, api_key=groq_api_key)
+    model = ChatGroq(model=model_name, api_key=groq_api_key, temperature=0.3)
     qa_chain = RetrievalQA.from_chain_type(llm=model, chain_type="stuff", retriever=retriever)
 
     return qa_chain
@@ -59,13 +60,11 @@ You are a highly accurate and concise recommendation engine. Based on the user's
 - Diet: {diet}
 - Allergies: {allergy}
 - Previous meals: {previous_meals}
-
-Based on the provided list of meals and ingredients, please recommend unique combinations of meal IDs. Ensure the following:
-- Each combination contains exactly 3 unique meal IDs.
-- No duplicate or repeated meal IDs within or across combinations.
-- The total calories of each combination is within the range ({calo} - 100) to ({calo} + 100).
-
-Return a list containing groups of 3 unique meal IDs, with each group representing a combination of 3 meals.
+Important:
+- Only return meal IDs that exist in the provided dataset. The array at least 9 id.
+- Do not create new IDs.
+- Ensure the meals meet the user's dietary requirements and preferences.
+Return a list of unique meal IDs that meet the user's dietary and allergy requirements
 Do not include any explanation or additional text in the response.
 """
     prompt = PromptTemplate(
@@ -121,6 +120,33 @@ def format_output(raw_output, df):
     except Exception as e:
         raise ValueError(f"Error parsing output: {str(e)}")
 
+def cal_calo(calo, meal_ids, df):
+    """
+    Group meal IDs into groups of 3 with total calories within the allowed range.
+    """
+    groups = []
+    n = len(meal_ids)
+    lower_bound = calo - 200
+    upper_bound = calo + 200
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            for k in range(j + 1, n):
+                # Get meal IDs
+                meal_id_group = [meal_ids[i], meal_ids[j], meal_ids[k]]
+                
+                # Calculate total calories
+                total_calo = sum(
+                    df.loc[df["meal_id"] == meal_id, "calo"].values[0]
+                    for meal_id in meal_id_group
+                )
+                
+                # Check if within range
+                if lower_bound <= total_calo <= upper_bound:
+                    groups.append(meal_id_group)
+    
+    return groups
+
 @app.post("/recommend")
 async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingredients.csv"):
     try:
@@ -136,8 +162,11 @@ async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingre
         
         # Query the model
         raw_result = qa_chain.invoke(question)
-        result = format_output(raw_result["result"], df)
-        return {"recommended_meal_ids": result}
+        valid_meal_ids = format_output(raw_result["result"], df)
+        recommended_groups = cal_calo(preferences.calo, valid_meal_ids, df)
+        return {"result": recommended_groups,
+                "raw_result": raw_result
+                }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
