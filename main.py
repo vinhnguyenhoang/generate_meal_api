@@ -165,7 +165,7 @@ async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingre
         valid_meal_ids = format_output(raw_result["result"], df)
         recommended_groups = cal_calo(preferences.calo, valid_meal_ids, df)
         return {"result": recommended_groups,
-                "raw_result": raw_result
+                "raw_result": raw_result["result"]
                 }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
