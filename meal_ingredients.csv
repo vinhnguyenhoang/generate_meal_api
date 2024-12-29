@@ -1,0 +1,102 @@
+meal_id,meal_name,ingredient_name,ingredient_qty,calo
+1,Garlic Butter Shrimp,Garlic,5.0,350
+1,Garlic Butter Shrimp,Shrimp,200.0,350
+1,Garlic Butter Shrimp,Butter,50.0,350
+1,Garlic Butter Shrimp,Olive oil,10.0,350
+1,Garlic Butter Shrimp,Soy sauce,15.0,350
+2,Chicken Fried Rice,Chicken breast,150.0,450
+2,Chicken Fried Rice,Rice,200.0,450
+2,Chicken Fried Rice,Egg,2.0,450
+2,Chicken Fried Rice,Onion,50.0,450
+2,Chicken Fried Rice,Vegetable oil,10.0,450
+3,Vegetable Stir Fry,Broccoli,100.0,300
+3,Vegetable Stir Fry,Green beans,80.0,300
+3,Vegetable Stir Fry,Cucumber,50.0,300
+3,Vegetable Stir Fry,Bok choy,50.0,300
+3,Vegetable Stir Fry,Vegetable oil,10.0,300
+4,Beef and Broccoli Stir Fry,Beef,150.0,400
+4,Beef and Broccoli Stir Fry,Broccoli,100.0,400
+4,Beef and Broccoli Stir Fry,Soy sauce,20.0,400
+4,Beef and Broccoli Stir Fry,Butter,20.0,400
+4,Beef and Broccoli Stir Fry,Olive oil,10.0,400
+5,Spaghetti with Meat Sauce,Unknown,200.0,550
+5,Spaghetti with Meat Sauce,Beef,100.0,550
+5,Spaghetti with Meat Sauce,"Tomatoes, crushed",150.0,550
+5,Spaghetti with Meat Sauce,Onion,50.0,550
+5,Spaghetti with Meat Sauce,Olive oil,10.0,550
+6,Cheesy Baked Potatoes,Potatoes,300.0,500
+6,Cheesy Baked Potatoes,"Cheese, cheddar",50.0,500
+6,Cheesy Baked Potatoes,Milk,100.0,500
+6,Cheesy Baked Potatoes,Butter,30.0,500
+6,Cheesy Baked Potatoes,Sugar,5.0,500
+7,Tilapia with Lemon Butter,Tilapia,200.0,400
+7,Tilapia with Lemon Butter,Butter,30.0,400
+7,Tilapia with Lemon Butter,Lemon juice,10.0,400
+7,Tilapia with Lemon Butter,Garlic,3.0,400
+7,Tilapia with Lemon Butter,Olive oil,10.0,400
+8,Vegetarian Chickpea Stew,Chickpeas,150.0,350
+8,Vegetarian Chickpea Stew,"Tomatoes, crushed",200.0,350
+8,Vegetarian Chickpea Stew,"Cabbage, green",100.0,350
+8,Vegetarian Chickpea Stew,Beets,50.0,350
+8,Vegetarian Chickpea Stew,Vegetable oil,15.0,350
+9,Shrimp Tacos,Shrimp,150.0,300
+9,Shrimp Tacos,Lemon juice,10.0,300
+9,Shrimp Tacos,Garlic,3.0,300
+9,Shrimp Tacos,"Tomatoes, crushed",50.0,300
+9,Shrimp Tacos,Olive oil,10.0,300
+10,Beef Pho,Beef,150.0,350
+10,Beef Pho,"Cabbage, green",50.0,350
+10,Beef Pho,Chickpeas,30.0,350
+10,Beef Pho,Bok choy,20.0,350
+10,Beef Pho,Onion,20.0,350
+11,Vegetable Curry,"Tomatoes, crushed",200.0,400
+11,Vegetable Curry,"Cabbage, green",100.0,400
+11,Vegetable Curry,Beets,50.0,400
+11,Vegetable Curry,Green beans,30.0,400
+11,Vegetable Curry,Vegetable oil,10.0,400
+12,Chicken Caesar Salad,Unknown,100.0,250
+12,Chicken Caesar Salad,Lemon juice,10.0,250
+12,Chicken Caesar Salad,Chicken breast,150.0,250
+12,Chicken Caesar Salad,Garlic,5.0,250
+12,Chicken Caesar Salad,"Cheese, cheddar",30.0,250
+13,Tomato Basil Soup,"Tomatoes, crushed",150.0,300
+13,Tomato Basil Soup,Milk,200.0,300
+13,Tomato Basil Soup,Onion,50.0,300
+13,Tomato Basil Soup,Olive oil,10.0,300
+13,Tomato Basil Soup,Chickpeas,20.0,300
+14,Grilled Cheese Sandwich,"Cheese, cheddar",100.0,400
+14,Grilled Cheese Sandwich,Butter,20.0,400
+14,Grilled Cheese Sandwich,Potatoes,200.0,400
+14,Grilled Cheese Sandwich,Milk,50.0,400
+14,Grilled Cheese Sandwich,Sugar,5.0,400
+15,Eggplant Parmesan,Unknown,200.0,450
+15,Eggplant Parmesan,"Cheese, cheddar",50.0,450
+15,Eggplant Parmesan,"Tomatoes, crushed",150.0,450
+15,Eggplant Parmesan,Butter,30.0,450
+15,Eggplant Parmesan,Olive oil,10.0,450
+16,BBQ Pork Ribs,Beef,300.0,600
+16,BBQ Pork Ribs,Soy sauce,20.0,600
+16,BBQ Pork Ribs,Olive oil,20.0,600
+16,BBQ Pork Ribs,Butter,50.0,600
+16,BBQ Pork Ribs,Milk,100.0,600
+17,Avocado Toast,Lemon juice,20.0,200
+17,Avocado Toast,Unknown,150.0,200
+17,Avocado Toast,Olive oil,10.0,200
+17,Avocado Toast,Milk,50.0,200
+17,Avocado Toast,Sugar,5.0,200
+18,Berry Smoothie,Unknown,100.0,250
+18,Berry Smoothie,Unknown,50.0,250
+18,Berry Smoothie,Milk,200.0,250
+18,Berry Smoothie,Sugar,10.0,250
+18,Berry Smoothie,Olive oil,5.0,250
+19,Sweet and Spicy Veggie Stir-Fry,"Peppers, bell, green, raw",1.0,150
+19,Sweet and Spicy Veggie Stir-Fry,"Mushrooms, crimini",50.0,150
+19,Sweet and Spicy Veggie Stir-Fry,"Spinach, mature",30.0,150
+19,Sweet and Spicy Veggie Stir-Fry,"Kale, raw",50.0,150
+19,Sweet and Spicy Veggie Stir-Fry,Soy sauce made from soy (tamari),1.0,150
+19,Sweet and Spicy Veggie Stir-Fry,"Spices, chili powder",1.0,150
+20,Grilled Salmon with Corn and Zucchini,"Fish, salmon, Atlantic, farm raised, raw",150.0,350
+20,Grilled Salmon with Corn and Zucchini,"Corn, sweet, yellow and white kernels, fresh, raw",100.0,350
+20,Grilled Salmon with Corn and Zucchini,"Squash, summer, green, zucchini, includes skin, raw",50.0,350
+20,Grilled Salmon with Corn and Zucchini,Soy sauce made from soy (tamari),1.0,350
+20,Grilled Salmon with Corn and Zucchini,"Spices, chili powder",1.0,350
