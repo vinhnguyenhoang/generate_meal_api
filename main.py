@@ -107,7 +107,7 @@ Important:
 - Only return meal IDs that exist in the provided dataset and is not in {previous_meal_ids}
 - Do not create new IDs.
 - Ensure the meals meet the user's dietary requirements and preferences.
-- The calories of the meal need in range: {target_calo} - 100 <= meal calories <= {target_calo} + 100
+- The calories of the meal need in range: 0 < {target_calo} - 100 <= meal calories <= {target_calo} + 100
 Return a list of unique meal IDs that meet the user's dietary and allergy requirements
 Do not include any explanation or additional text in the response.
 """
@@ -264,7 +264,7 @@ async def recommend_meals_with_calo(
                 closest_meals = closest_meals.sort_values(by='calo').head(3)
                 valid_meal_ids = closest_meals['meal_id'].tolist()
             else:
-                valid_meal_ids = [0]
+                valid_meal_ids = [1]
 
         return {
             "result": valid_meal_ids,
@@ -314,42 +314,65 @@ async def recommend_meals_with_total_calo(
 
         # Chuẩn bị dữ liệu Preferences
         preferences_dict = preferences.model_dump()
-        total_calo = preferences_dict["calo"]
-        target_calo = preferences_dict.get("target_calo", None)
-        if target_calo is None or (target_calo >= total_calo):
-            preferences_dict["target_calo"] = 500
+        question = generate_question(preferences_dict)
 
-        calo_diff = 100
-        # Khởi tạo danh sách các món ăn và tổng calo hiện tại
+        # Query the model
+        raw_result = qa_chain.invoke(question)
+        raw_meal_ids = format_output(raw_result["result"], df)
+        print(raw_meal_ids)
+        total_calo = preferences_dict["calo"]
+        target_calo = preferences_dict["target_calo"]
         selected_meals = []
         total_calories = 0
+        # Pick random 2 meal in raw_meal_ids
+        for meal_id in raw_meal_ids:
+            calo = df[df['meal_id'] == meal_id]['calo'].values[0]
+            if total_calories + calo < total_calo:
+                selected_meals.append(meal_id)
+                total_calories += calo
+            if len(selected_meals) == 2:
+                break
+        print(selected_meals)
+        preferences_dict["target_calo"] = total_calo - total_calories
+        preferences_dict["previous_meals"] = [str(meal_id) for meal_id in selected_meals]
 
-        # Lặp lại cho đến khi tổng calo đạt gần total_calo
-        while total_calories < total_calo - calo_diff:
+        for _ in range(5):
+            print("preferences_dict: ", preferences_dict["target_calo"] )
+            # Tạo câu hỏi mới cho phần calo còn lại
             question = generate_question_one(preferences_dict)
             raw_result = qa_chain.invoke(question)
             valid_meal_ids = format_output(raw_result["result"], df)
 
-            # Loại bỏ các món đã chọn từ trước nếu có
+            # Loại bỏ các món đã chọn trước đó
             valid_meal_ids = [meal_id for meal_id in valid_meal_ids if meal_id not in selected_meals]
 
             if not valid_meal_ids:
-                valid_meal_ids = [0]
+                break
 
-            # Chọn một món ăn phù hợp và thêm vào danh sách
+            # Chọn món ăn phù hợp tiếp theo
             selected_meal_id = valid_meal_ids[0]
             selected_meals.append(selected_meal_id)
+            total_calories = sum(df[df['meal_id'] == meal_id]['calo'].values[0] for meal_id in selected_meals)
+            print("total_calories: ", total_calories)
+            # Cập nhật preferences_dict
+            preferences_dict["previous_meals"] = [int(meal_id) for meal_id in selected_meals]
+            print("preferences_dict previous_meals after: ", preferences_dict["previous_meals"] )
 
-            # Cập nhật tổng calo
+            # Kiểm tra xem đã đủ calo chưa
+            if total_calories > int(total_calo - 100):
+                break
+            preferences_dict["target_calo"] = int(total_calo - total_calories + 100)
+            print("preferences_dict after: ", preferences_dict["target_calo"] )
+        if len(selected_meals) < 3:
+            remaining_calo = total_calo - total_calories
+            closest_meal = min(raw_meal_ids, key=lambda meal_id: abs(df[df['meal_id'] == meal_id]['calo'].values[0] - remaining_calo))
+            selected_meals.append(closest_meal)
             total_calories = sum(df[df['meal_id'] == meal_id]['calo'].values[0] for meal_id in selected_meals)
 
-            # Cập nhật lại câu hỏi Preferences với các món đã chọn
-            preferences_dict["previous_meals"] = [str(meal_id) for meal_id in selected_meals]
-
-        # Trả về kết quả với các món ăn đã chọn và tổng calo
         return {
             "result": selected_meals,
-            "total_calo": total_calories
+            "total_calo": total_calories,
+            "raw_result": raw_result["result"],
         }
 
     except Exception as e:
