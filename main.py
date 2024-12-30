@@ -20,7 +20,12 @@ def load_data_from_csv(file_path):
     df = pd.read_csv(file_path)
     documents = [
         Document(
-            page_content=f"Meal_Id: {row['meal_id']}\nMeal_Name: {row['meal_name']}\nIngredient_Name: {row['ingredient_name']}\nIngredient_Quantity: ({row['ingredient_qty']}\nCalo: ({row['calo']})")
+            page_content=
+            f"""Meal_Id: {row['meal_id']}\n
+                Meal_Name: {row['meal_name']}\n
+                Ingredient_Name: {row['ingredient_name']}\n
+                Ingredient_Quantity: ({row['ingredient_qty']}\n
+                Calo: ({row['calo']})""")
         for _, row in df.iterrows()
     ]
     return documents, df
@@ -31,7 +36,7 @@ def create_custom_retriever(vectorstore, preferences):
         if preferences["allergy"].lower() in content:
             return False  # Exclude documents containing allergens
         return True
-    
+
     retriever = vectorstore.as_retriever(filter_function=custom_filter)
     retriever.search_kwargs["k"] = 50 # Increase the number of returned documents
     return retriever
@@ -85,6 +90,46 @@ Do not include any explanation or additional text in the response.
         allergy=preferences["allergy"],
         previous_meals=", ".join(preferences["previous_meals"]),
     )
+def generate_question_one(preferences):
+    """Generate a structured prompt using PromptTemplate."""
+    template = """
+You are a highly accurate and concise recommendation engine. Based on the user's preferences below, suggest the most suitable meals:
+- Height: {height} cm
+- Weight: {weight} kg
+- Age: {age} years
+- Preferences: {preferences}
+- Lifestyle: {lifestyle}
+- Diet: {diet}
+- Allergies: {allergy}
+- Previous meal ids: {previous_meal_ids}
+- Target calories: {target_calo}
+Important:
+- Only return meal IDs that exist in the provided dataset and is not in {previous_meal_ids}
+- Do not create new IDs.
+- Ensure the meals meet the user's dietary requirements and preferences.
+- The calories of the meal need in range: {target_calo} - 100 <= meal calories <= {target_calo} + 100
+Return a list of unique meal IDs that meet the user's dietary and allergy requirements
+Do not include any explanation or additional text in the response.
+"""
+    prompt = PromptTemplate(
+        input_variables=[
+            "height", "weight", "age", "preferences",
+            "lifestyle", "diet", "allergy", "previous_meals", "previous_meal_ids", "target_calo"
+        ],
+        template=template
+    )
+    return prompt.format(
+        height=preferences["height"],
+        weight=preferences["weight"],
+        age=preferences["age"],
+        preferences=preferences["preferences"],
+        lifestyle=preferences["lifestyle"],
+        diet=preferences["diet"],
+        allergy=preferences["allergy"],
+        previous_meals=", ".join(preferences["previous_meals"]),
+        previous_meal_ids=preferences["previous_meal_ids"],
+        target_calo=preferences["target_calo"],
+    )
 
 class Preferences(BaseModel):
     height: Optional[int] = None
@@ -95,57 +140,67 @@ class Preferences(BaseModel):
     lifestyle: str = ""
     diet: str = ""
     allergy: str = ""
-    previous_meals: List[str] = []
+    previous_meals: List[str] = [],
+    previous_meal_ids: List[int] = [],
+    target_calo: Optional[int] = None,
 
 def format_output(raw_output, df):
     """Extract a list of unique integer meal IDs from the model's raw output."""
     try:
-        # Find array 
+        # Find array
         matches = re.findall(r"\[([^\]]+)\]", raw_output)
         if not matches:
-            raise ValueError("No array found in the output.")
-        
+            return []
+
         array_content = matches[0]
-        
+
         meal_ids = [int(item.strip()) for item in array_content.split(",") if item.strip().isdigit()]
         # check id in data frame
-        valid_meal_ids = [meal_id for meal_id in set(meal_ids) 
+        valid_meal_ids = [meal_id for meal_id in set(meal_ids)
                                if meal_id in df['meal_id'].values]
-        
+
         if not valid_meal_ids:
-            raise ValueError("No new meal IDs to recommend. All results are duplicates or invalid.")
-        
-        
+            return []
+
         return valid_meal_ids
     except Exception as e:
         raise ValueError(f"Error parsing output: {str(e)}")
 
-def cal_calo(calo, meal_ids, df):
-    """
-    Group meal IDs into groups of 3 with total calories within the allowed range.
-    """
-    groups = []
-    n = len(meal_ids)
-    lower_bound = calo - 200
-    upper_bound = calo + 200
+def get_combinations(arr, n):
+    """Generate all combinations of length n from the list arr."""
+    if n == 0:
+        return [[]]
+    if len(arr) < n:
+        return []
 
-    for i in range(n):
-        for j in range(i + 1, n):
-            for k in range(j + 1, n):
-                # Get meal IDs
-                meal_id_group = [meal_ids[i], meal_ids[j], meal_ids[k]]
-                
-                # Calculate total calories
-                total_calo = sum(
-                    df.loc[df["meal_id"] == meal_id, "calo"].values[0]
-                    for meal_id in meal_id_group
-                )
-                
-                # Check if within range
-                if lower_bound <= total_calo <= upper_bound:
-                    groups.append(meal_id_group)
-    
-    return groups
+    result = []
+    for i in range(len(arr)):
+        # For each element, get combinations from the rest of the list
+        for rest in get_combinations(arr[i+1:], n-1):
+            result.append([arr[i]] + rest)
+
+    return result
+
+def calc_meal_calo(meal_ids, total_calo, df, calo_diff=100):
+    # Lấy thông tin calo của các món ăn từ df
+    meal_calo = {meal_id: df[df['meal_id'] == meal_id]['calo'].values[0] for meal_id in meal_ids}
+
+    # Hàm tính tổng calo của một danh sách món ăn
+    def get_total_calo(ids):
+        return sum(meal_calo[meal_id] for meal_id in ids)
+
+    # Tìm các kết hợp ít nhất 3 món ăn có tổng calo trong khoảng [total_calo-calo_diff, total_calo+calo_diff]
+    valid_combinations = []
+    for i in range(3, len(meal_ids)+1):  # Tìm kết hợp từ 3 món trở lên
+        combinations = get_combinations(meal_ids, i)  # Lấy tất cả các kết hợp có i món
+        for comb in combinations:
+            total = get_total_calo(comb)
+            if total_calo - calo_diff <= total <= total_calo + calo_diff:
+                return comb
+
+    return [meal_ids[0], meal_ids[1], meal_ids[2]]
+
+
 
 @app.post("/recommend")
 async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingredients.csv"):
@@ -154,21 +209,152 @@ async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingre
 
         # Create RetrievalQA chain
         groq_api_key = api_key
-        model_name = "llama-3.3-70b-versatile"
+        model_name = "llama3-8b-8192"
         qa_chain = create_retrieval_chain(documents, model_name, groq_api_key, preferences)
 
         # Generate question
         question = generate_question(preferences.model_dump())
-        
+
         # Query the model
         raw_result = qa_chain.invoke(question)
         valid_meal_ids = format_output(raw_result["result"], df)
-        recommended_groups = cal_calo(preferences.calo, valid_meal_ids, df)
-        return {"result": recommended_groups,
+        return {
+                "result": valid_meal_ids,
                 "raw_result": raw_result["result"]
                 }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/recommend/new")
+async def recommend_meals_with_calo(
+        preferences: Preferences,
+        file_path: str = "meal_ingredients.csv"
+    ):
+    try:
+        # Load data
+        documents, df = load_data_from_csv(file_path)
+
+        # Create RetrievalQA chain
+        groq_api_key = api_key
+        model_name = "llama3-8b-8192"
+        qa_chain = create_retrieval_chain(documents, model_name, groq_api_key, preferences)
+
+        # Generate the question for recommendation
+        preferences_dict = preferences.model_dump()
+        question = generate_question_one(preferences_dict)
+        # query model
+        raw_result = qa_chain.invoke(question)
+        raw_meal_ids = format_output(raw_result["result"], df)
+        target_calo = preferences_dict.get("target_calo", None)
+        valid_meal_ids = []
+        if preferences_dict["previous_meal_ids"]:
+            valid_meal_ids = [meal_id for meal_id in valid_meal_ids if meal_id != preferences_dict["previous_meal_ids"]]
+
+        if preferences_dict["target_calo"]:
+            valid_meal_ids = [
+                meal_id for meal_id in valid_meal_ids
+                if abs(df[df['meal_id'] == meal_id]['calo'].values[0] - preferences_dict["target_calo"]) <= 100
+            ]
+
+        if not valid_meal_ids:
+            if not raw_meal_ids:
+                closest_meals = df[
+                    (df['calo'] >= target_calo - 100) & (df['calo'] <= target_calo + 100)
+                ]
+                closest_meals = closest_meals.sort_values(by='calo').head(3)
+                valid_meal_ids = closest_meals['meal_id'].tolist()
+            else:
+                valid_meal_ids = [0]
+
+        return {
+            "result": valid_meal_ids,
+            "raw_result": raw_result["result"]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/recommend/day")
+async def recommend_meals(preferences: Preferences, file_path: str = "meal_ingredients.csv"):
+    try:
+        documents, df = load_data_from_csv(file_path)
+
+        # Create RetrievalQA chain
+        groq_api_key = api_key
+        model_name = "llama3-8b-8192"
+        qa_chain = create_retrieval_chain(documents, model_name, groq_api_key, preferences)
+
+        # Generate question
+        preferences_dict = preferences.model_dump()
+        question = generate_question(preferences_dict)
+
+        # Query the model
+        raw_result = qa_chain.invoke(question)
+        valid_meal_ids = format_output(raw_result["result"], df)
+        daily_meal_ids = calc_meal_calo(valid_meal_ids, preferences_dict["calo"],df, 150)
+        return {
+            "result": daily_meal_ids,
+            "raw_result": raw_result["result"]
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/recommend/calo")
+async def recommend_meals_with_total_calo(
+        preferences: Preferences,
+        file_path: str = "meal_ingredients.csv"
+    ):
+    try:
+        # Load dữ liệu từ CSV
+        documents, df = load_data_from_csv(file_path)
+
+        # Tạo RetrievalQA chain
+        groq_api_key = api_key
+        model_name = "llama3-8b-8192"
+        qa_chain = create_retrieval_chain(documents, model_name, groq_api_key, preferences)
+
+        # Chuẩn bị dữ liệu Preferences
+        preferences_dict = preferences.model_dump()
+        total_calo = preferences_dict["calo"]
+        target_calo = preferences_dict.get("target_calo", None)
+        if target_calo is None or (target_calo >= total_calo):
+            preferences_dict["target_calo"] = 500
+
+        calo_diff = 100
+        # Khởi tạo danh sách các món ăn và tổng calo hiện tại
+        selected_meals = []
+        total_calories = 0
+
+        # Lặp lại cho đến khi tổng calo đạt gần total_calo
+        while total_calories < total_calo - calo_diff:
+            question = generate_question_one(preferences_dict)
+            raw_result = qa_chain.invoke(question)
+            valid_meal_ids = format_output(raw_result["result"], df)
+
+            # Loại bỏ các món đã chọn từ trước nếu có
+            valid_meal_ids = [meal_id for meal_id in valid_meal_ids if meal_id not in selected_meals]
+
+            if not valid_meal_ids:
+                valid_meal_ids = [0]
+
+            # Chọn một món ăn phù hợp và thêm vào danh sách
+            selected_meal_id = valid_meal_ids[0]
+            selected_meals.append(selected_meal_id)
+
+            # Cập nhật tổng calo
+            total_calories = sum(df[df['meal_id'] == meal_id]['calo'].values[0] for meal_id in selected_meals)
+
+            # Cập nhật lại câu hỏi Preferences với các món đã chọn
+            preferences_dict["previous_meals"] = [str(meal_id) for meal_id in selected_meals]
+
+        # Trả về kết quả với các món ăn đã chọn và tổng calo
+        return {
+            "result": selected_meals,
+            "total_calo": total_calories
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/")
 async def root():
